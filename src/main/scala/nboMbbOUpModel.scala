@@ -1,9 +1,9 @@
 /*
-***********NBO_ph2_MBB_Postpaid_UPSell Model******************
+***********Next Best Offer Recommendation Model Model-Supervised Learning Method******************
 Created Date: 2018-07-12
 Created By: hasitha_08565
 Algorithm: Random Forest Classifier
-**************************************************************
+**************************************************************************************************
 */
 
 import org.apache.kudu.spark.kudu._
@@ -29,17 +29,17 @@ import com.typesafe.config.ConfigFactory
 object nboMbbOUpModel {
 	Logger.getLogger("org").setLevel(Level.WARN)
 	val filePath = new File("").getAbsolutePath
-	val config = ConfigFactory.parseFile(new File(filePath + "/../conf/NBO_ph2.conf"))
+	val config = ConfigFactory.parseFile(new File(filePath + "/../conf/NBO.conf"))
 
-	val conf = new SparkConf().setAppName("NBO-MBB_POSTPAID_UPSell").set("spark.driver.allowMultipleContexts", "true")
+	val conf = new SparkConf().setAppName("NBO-Recommendation").set("spark.driver.allowMultipleContexts", "true")
 	val sc = new org.apache.spark.SparkContext(conf)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
   def main(args: Array[String]) = {
 
 	println("*****************NBO-MBB_POSTPAID_UPSell Model - Random Forest Classifier******************")
-	val dataset = sqlContext.read.options(Map("kudu.master" -> "10.48.30.122:7051,10.48.30.130:7051","kudu.table" -> "impala::kudu_tabs.nbo_mbb_o_up_train")).kudu
-	val col = dataset.select("pcrf_peak_usage","pcrf_offpeak_usage","callduration","smscount","province","average_monthly_bill_amount","network_stay","credit_category","credit_type","customer_priority_type","age","gender","preferred_language","number_of_dbn_accounts","cx_grading","lte_flag","movie","music","profession","media_response","overseas_travellers","ott_apps_user","online_shopper","selfcare_app_user","youtube","netflix").columns
+	val dataset = sqlContext.read.options(Map("kudu.master" -> "10.48.30.122:7051,10.48.30.130:7051","kudu.table" -> "impala::kudu_tabs.input_training_table")).kudu
+	val col = dataset.select("feature1","feature2","feature3","feature4","feature5","feature6").columns
 		
 	val assembler = vectorAssembler(dataset,col)
     assembler.printSchema()
@@ -89,9 +89,9 @@ object nboMbbOUpModel {
 		
 	//Save Model
 	println("****************Model Saving....************************")
-	sc.parallelize(Seq(cvModel), 1).saveAsObjectFile(config.getString("pathPosUp"))
-    //sc.parallelize(Seq(cvModel), 1).saveAsObjectFile("hdfs://nameservice1//source/NBO_ph2/pos_gsmupsell")
-    println("****************GSM Upsell Postpaid Model Saved in: " + config.getString("pathPosUp") + "***********")
+	sc.parallelize(Seq(cvModel), 1).saveAsObjectFile(config.getString("NBOPath"))
+    //sc.parallelize(Seq(cvModel), 1).saveAsObjectFile("hdfs://nameservice1//source/NBO/NBOPath")
+    println("****************GSM Upsell Postpaid Model Saved in: " + config.getString("NBOPath") + "***********")
     
 	}
 	
