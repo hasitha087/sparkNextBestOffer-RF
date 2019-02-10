@@ -1,0 +1,7 @@
+[0m[[0minfo[0m] [0mPackaging /home/sys_ml_tool1/ml/ml-devel/NBO_v2/nbo_mbb_o_upModel/target/scala-2.10/nbo_ph2-mbb_postpaid_upsell_model_2.10-1.0.jar ...[0m
+[0m[[0mdebug[0m] [0mInput file mappings:[0m
+[0m[[0mdebug[0m] [0m	nboMbbOUpModel.class[0m
+[0m[[0mdebug[0m] [0m	  /home/sys_ml_tool1/ml/ml-devel/NBO_v2/nbo_mbb_o_upModel/target/scala-2.10/classes/nboMbbOUpModel.class[0m
+[0m[[0mdebug[0m] [0m	nboMbbOUpModel$.class[0m
+[0m[[0mdebug[0m] [0m	  /home/sys_ml_tool1/ml/ml-devel/NBO_v2/nbo_mbb_o_upModel/target/scala-2.10/classes/nboMbbOUpModel$.class[0m
+[0m[[0minfo[0m] [0mDone packaging.[0m
