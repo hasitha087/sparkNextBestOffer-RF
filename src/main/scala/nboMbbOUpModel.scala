@@ -38,7 +38,7 @@ object nboMbbOUpModel {
   def main(args: Array[String]) = {
 
 	println("*****************NBO-MBB_POSTPAID_UPSell Model - Random Forest Classifier******************")
-	val dataset = sqlContext.read.options(Map("kudu.master" -> "10.48.30.122:7051,10.48.30.130:7051","kudu.table" -> "impala::kudu_tabs.input_training_table")).kudu
+	val dataset = sqlContext.read.options(Map("kudu.master" -> "xx.xx.xx.xxx:7051,xx.xx.xx.xxx:7051","kudu.table" -> "impala::kudu_tabs.input_training_table")).kudu
 	val col = dataset.select("feature1","feature2","feature3","feature4","feature5","feature6").columns
 		
 	val assembler = vectorAssembler(dataset,col)
@@ -90,7 +90,7 @@ object nboMbbOUpModel {
 	//Save Model
 	println("****************Model Saving....************************")
 	sc.parallelize(Seq(cvModel), 1).saveAsObjectFile(config.getString("NBOPath"))
-    //sc.parallelize(Seq(cvModel), 1).saveAsObjectFile("hdfs://nameservice1//source/NBO/NBOPath")
+    
     println("****************GSM Upsell Postpaid Model Saved in: " + config.getString("NBOPath") + "***********")
     
 	}
